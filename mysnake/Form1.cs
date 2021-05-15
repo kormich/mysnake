@@ -186,6 +186,7 @@ namespace mysnake
 
         private void Bomb()
         {
+
             Random a = new Random();
             rXX = a.Next(40, width - 40);
             int tempII = rXX % sizesnake;
@@ -193,6 +194,10 @@ namespace mysnake
             rYY = a.Next(80, width - 40);
             int tempJJ = rYY % sizesnake;
             rYY -= tempJJ;
+            if (rX == rXX && rY == rYY)
+            {
+                Bomb();
+            }
             for (int k = 0; k <= score; k++)
             {
                 if (snake[k].Location.X == rXX && snake[k].Location.Y == rYY )
@@ -255,7 +260,17 @@ namespace mysnake
                 form2.Show();
 
             }
-
+            if (score % 5 == 0 && score != p && score > 0 && score <70)
+            {
+                p = score;
+                Bomb();
+            }
+            if (score == 70)
+            {
+                bomb.Visible=false;
+                rYY = 0;
+                rXX = 0;
+            }
         }
 
 
