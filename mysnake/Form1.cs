@@ -19,13 +19,13 @@ namespace mysnake
         private int sizesnake = 40;
         private int forX, forY;
         private int rX, rY;
+        private int rXX, rYY;
         private PictureBox fruit;
+        private PictureBox bomb;
         private PictureBox[] snake = new PictureBox[400];
         private int score = 0;
         int h, m, s;
-
-
-
+        int p = 0;
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -69,11 +69,18 @@ namespace mysnake
             timer1.Start();
             this.KeyDown += new KeyEventHandler(Run);
 
+
+            bomb = new PictureBox();
+            bomb.BackColor = Color.Black;
+            bomb.Size = new Size(sizesnake, sizesnake);
+            Bomb();
+
+
+
             fruit = new PictureBox();
             fruit.BackColor = Color.Red;
             fruit.Size = new Size(sizesnake, sizesnake);
             Fruit();
-
 
         }
         private void timer2_Tick(object sender, EventArgs e)
@@ -138,7 +145,6 @@ namespace mysnake
         }
         private void update(Object myObject, EventArgs eventsArgs)
         {
-
             eatFruit();
             moveSnake();
             eatItself();
@@ -177,6 +183,27 @@ namespace mysnake
             }
 
         }
+
+        private void Bomb()
+        {
+            Random a = new Random();
+            rXX = a.Next(40, width - 40);
+            int tempII = rXX % sizesnake;
+            rXX -= tempII;
+            rYY = a.Next(80, width - 40);
+            int tempJJ = rYY % sizesnake;
+            rYY -= tempJJ;
+            for (int k = 0; k <= score; k++)
+            {
+                if (snake[k].Location.X == rXX && snake[k].Location.Y == rYY )
+                {
+                    Bomb();
+                }
+            }
+            bomb.Location = new Point(rXX, rYY);
+            this.Controls.Add(bomb);
+        }
+
         private void Fruit()
         {
             Random r = new Random();
@@ -187,15 +214,28 @@ namespace mysnake
             int tempJ = rY % sizesnake;
             rY -= tempJ;
 
-            fruit.Location = new Point(rX, rY);
-            this.Controls.Add(fruit);
+            for (int i = 0; i <= score; i++)
+            {
+                if (snake[i].Location.X == rX && snake[i].Location.Y == rY || rX == rXX && rY== rYY)
+                {
+                    Fruit();
+                }
+            }
+
+             fruit.Location = new Point(rX, rY);
+             this.Controls.Add(fruit);
+            
         }
+
+
 
         private void eatFruit()
         {
             if (score == 195)
-            {               
-                Close();
+            {
+                timer1.Stop();
+                Form3 form3 = new Form3();
+                form3.Show();
             }
             if (snake[0].Location.X == rX && snake[0].Location.Y == rY)
             {
@@ -208,8 +248,16 @@ namespace mysnake
                 Fruit();
 
             }
+            if (snake[0].Location.X == rXX && snake[0].Location.Y == rYY)
+            {
+                timer1.Stop();
+                Form2 form2 = new Form2();
+                form2.Show();
+
+            }
 
         }
+
 
 
         private void moveSnake()
@@ -221,22 +269,22 @@ namespace mysnake
 
             snake[0].Location = new Point(snake[0].Location.X + forX * sizesnake, snake[0].Location.Y + forY * sizesnake);
 
-            if (snake[0].Location.X < 40 && forX == -1)
+            if (snake[0].Location.X < 40 )
             {
                 snake[0].Location = new Point(560, snake[0].Location.Y + forY * sizesnake);
 
             }
-            if (snake[0].Location.X > 560 && forX == 1)
+            if (snake[0].Location.X > 560 )
             {
                 snake[0].Location = new Point(40, snake[0].Location.Y + forY * sizesnake);
             }
 
-            if (snake[0].Location.Y < 80 && forY == -1)
+            if (snake[0].Location.Y < 80 )
             {
                 snake[0].Location = new Point(snake[0].Location.X + forX * sizesnake, 600);
             }
 
-            if (snake[0].Location.Y > 600 && forY == 1)
+            if (snake[0].Location.Y > 600 )
             {
                 snake[0].Location = new Point(snake[0].Location.X + forX * sizesnake, 80);
             }
@@ -269,10 +317,9 @@ namespace mysnake
 
             }
 
+
         }
 
+
     }
-
-
-
 }
