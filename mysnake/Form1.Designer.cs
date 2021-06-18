@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace mysnake
 {
     partial class Form1
@@ -35,6 +37,7 @@ namespace mysnake
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // timer2
@@ -68,6 +71,13 @@ namespace mysnake
             this.label3.TabIndex = 2;
             this.label3.Text = "label3";
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(21, 36);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(244, 241);
+            this.panel1.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -76,6 +86,7 @@ namespace mysnake
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -84,12 +95,16 @@ namespace mysnake
 
         }
 
+
+
         #endregion
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel1;
+
     }
 }
 

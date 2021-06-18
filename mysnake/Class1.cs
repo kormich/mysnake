@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace mysnake
 {
-    class Class1
-    {
+     internal class Map
+     {
+        
+
+
     }
 }
